@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoe Store</title>
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+<body>
+    <header>
+        <h1>Shoe Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" target="_blank">Home</a></li>
+                <li><a href="men's shoes.html" target="_blank">Men's Shoes</a></li>
+                <li><a href="Women's Shoes.html" target="_blank">Women's Shoes</a></li>
+                <li><a href="about.html" target="_blank">About</a></li>
+                <li><a href="contact.html" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="shoe-list">
+        <!-- Shoe display -->
+    </main>
+    <script>const shoes = [
+        { name: "Sneakers", price: 50, image: "photo-1608231387042-66d1773070a5.avif" },
+        { name:"Heels", price:100, image:"pexels-ray-piedra-1507351.jpg" },
+        { name:"Heels", price:120 ,image:"5bdfc703902e89b5f76f19066479837a.jpg"},
+        { name:"MaryJane", price:70 ,image:"feefe82cc6c9729d97a288421beb17fb.jpg"},
+        { name:"MaryJane", price:90, image:"images.jpeg" },
+        { name:"Sandles",price:10 ,image:"1.jpg"},
+        { name:"Sandles" ,price:30, image:"mushroom_shoes_17.webp" },
+        { name:"Nike" ,price:50, image:"images (1).jpeg"},
+        // Add more shoe objects as needed
+    ];
+    
+    function displayShoes(shoeArray) {
+        shoeArray.forEach(shoe => {
+            const shoeList = document.querySelector('.shoe-list');
+            const shoeCard = document.createElement('div');
+            shoeCard.classList.add('shoe-card');
+    
+            shoeCard.innerHTML = `
+                <img src="${shoe.image}" alt="${shoe.name}">
+                <h2>${shoe.name}</h2>
+                <p>$${shoe.price}</p>
+                <button>Add to Cart</button>
+            `;
+    
+            shoeList.appendChild(shoeCard);
+        });
+    }
+    
+    displayShoes(shoes);
+
+    </script>
+</body>
+</html>

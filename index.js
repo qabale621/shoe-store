@@ -1,0 +1,64 @@
+const shoes = [
+    { name: "Sneakers", price: 50, image: "photo-1608231387042-66d1773070a5.avif" },
+    { name: "Boots", price: 80, image: "boots.jpg" },
+    { name:"Heels", price:100, image:"pexels-ray-piedra-1507351.jpg" },
+    { name:"Heels", price:120 ,image:"5bdfc703902e89b5f76f19066479837a.jpg"},
+    { name:"jordan" ,price:150 ,image:"download.jpeg" },
+    { name:"Prada", price:400, image:"5c3bd4_5f66780bb9134dc6907c04ab5ff58df4~mv2.jpeg" },
+    { name:"MaryJane", price:70 ,image:"feefe82cc6c9729d97a288421beb17fb.jpg"},
+    { name:"MaryJane", price:90, image:"images.jpeg" },
+    { name:"Sandals",price:10 ,image:"1.jpg"},
+    { name:"Sandles" ,price:30, image:"mushroom_shoes_17.webp" },
+    { name:"Nike" ,price:50, image:"images (1).jpeg"},
+    { name:"Crocks" ,price:6, image:"download (1).jpeg"},
+    // Add more shoe objects as needed
+];
+
+function displayShoes(shoeArray) {
+    const shoeList = document.querySelector('.shoe-list');
+
+    shoeArray.forEach(shoe => {
+        const shoeCard = document.createElement('div');
+        shoeCard.classList.add('shoe-card');
+
+        shoeCard.innerHTML = `
+            <img src="${shoe.image}" alt="${shoe.name}">
+            <h2>${shoe.name}</h2>
+            <p>$${shoe.price}</p>
+            <button class="add-to-cart">Add to Cart</button>
+        `;
+
+        shoeList.appendChild(shoeCard);
+    });
+
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    addToCartButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const selectedShoe = shoes[index]; // Get the corresponding shoe from the array
+
+            // Initiate the payment using IntaSend when 'Add to Cart' is clicked
+            new window.IntaSend({
+                publicAPIKey: "ISPubKey_test_91ffc81a-8ac4-419e-8008-7091caa8d73f",
+                live: false
+            })
+            .on("COMPLETE", (results) => {
+                console.log("Do something on success", results);
+                alert(`Payment successful for ${selectedShoe.name}!`);
+            })
+            .on("FAILED", (results) => {
+                console.log("Do something on failure", results);
+                alert(`Payment failed for ${selectedShoe.name}. Please try again.`);
+            })
+            .on("IN-PROGRESS", (results) => {
+                console.log("Payment in progress status", results);
+                alert(`Payment in progress for ${selectedShoe.name}.`);
+            });
+
+            // Customize further actions to handle the payment result, like updating a cart or database
+        });
+    });
+}
+
+// Display shoes and set up payment on 'Add to Cart' button click
+displayShoes(shoes);
