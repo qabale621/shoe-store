@@ -62,7 +62,7 @@ function displayShoes(shoeArray) {
 
     addToCartButtons.forEach((button, index) => {
         button.addEventListener('click', () => {
-            const selectedShoe = shoes[index]; // Get the corresponding shoe from the array
+            const selectedShoe = shoes[index];
 
             // Initiate the payment using IntaSend when 'Add to Cart' is clicked
             new window.IntaSend({
